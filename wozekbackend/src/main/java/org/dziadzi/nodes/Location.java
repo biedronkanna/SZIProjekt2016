@@ -1,9 +1,11 @@
 package org.dziadzi.nodes;
 
+
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -19,7 +21,7 @@ public class Location {
     private Integer latitude;
 
     @Relationship(type = "IS_NEIGHBOUR", direction = Relationship.UNDIRECTED)
-    public Set<Location> neighbours;
+    public Set<Location> neighbours = new HashSet<Location>();
 
     @Relationship(type = "IS_LOCATED_AT", direction = Relationship.INCOMING)
     private Item item;

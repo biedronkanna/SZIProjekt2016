@@ -16,13 +16,11 @@ public class ItemType {
     @GraphId
     private Long id;
 
-    @Relationship(type = "SHOULD_BE_LOCATED_AT")
-    private
-    Location location;
+    @Relationship(type = "SHOULD_BE_STORED_IN")
+    private StorageType storageType;
 
     @Relationship(type= "IS_TYPE_OF")
-    private
-    Set<Item> items;
+    private Set<Item> items;
 
     public Long getId() {
         return id;
@@ -32,13 +30,7 @@ public class ItemType {
         this.id = id;
     }
 
-    public Location getLocation() {
-        return location;
-    }
 
-    public void setLocation(Location location) {
-        this.location = location;
-    }
 
     public Set<Item> getItems() {
         return items;

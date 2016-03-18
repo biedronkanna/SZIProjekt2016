@@ -11,21 +11,20 @@ import org.neo4j.ogm.annotation.Relationship;
 public class Item {
 
     @GraphId
-    private
-    Long id;
+    private Long id;
 
 
-    @Relationship(type= "IS_TYPE_OF", direction = Relationship.INCOMING)
-    private
-    ItemType type;
+    @Relationship(type = "IS_TYPE_OF", direction = Relationship.INCOMING)
+    private ItemType type;
 
+    @Relationship(type = "IS_STORED_IN")
+    private Storage storage;
 
     @Relationship(type = "IS_LOCATED_AT")
-    private
-    Location location;
+    private Location location;
+
 
     private String name;
-
 
     public Long getId() {
         return id;
