@@ -7,12 +7,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by kkuc on 2016-03-18.
+ * Created by kkuc on 2016-03-19.
  */
 public class LocationDtoBuilder {
     private Long id;
-    private Integer latitude;
-    private Integer longitude;
+    private Integer y;
+    private Integer x;
     private Set<NeighbourDto> neighbours = new HashSet<>();
 
     private LocationDtoBuilder() {
@@ -27,13 +27,13 @@ public class LocationDtoBuilder {
         return this;
     }
 
-    public LocationDtoBuilder withLatitude(Integer latitude) {
-        this.latitude = latitude;
+    public LocationDtoBuilder withY(Integer y) {
+        this.y = y;
         return this;
     }
 
-    public LocationDtoBuilder withLongitude(Integer longitude) {
-        this.longitude = longitude;
+    public LocationDtoBuilder withX(Integer x) {
+        this.x = x;
         return this;
     }
 
@@ -43,14 +43,14 @@ public class LocationDtoBuilder {
     }
 
     public LocationDtoBuilder but() {
-        return aLocationDto().withId(id).withLatitude(latitude).withLongitude(longitude).withNeighbours(neighbours);
+        return aLocationDto().withId(id).withY(y).withX(x).withNeighbours(neighbours);
     }
 
     public LocationDto build() {
         LocationDto locationDto = new LocationDto();
         locationDto.setId(id);
-        locationDto.setLatitude(latitude);
-        locationDto.setLongitude(longitude);
+        locationDto.setY(y);
+        locationDto.setX(x);
         locationDto.setNeighbours(neighbours);
         return locationDto;
     }

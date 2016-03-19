@@ -17,8 +17,8 @@ public class LocationToNeighbourConverter implements Function<Location,Neighbour
 
     @Override
     public NeighbourDto apply(Location location) {
-        NeighbourDto converted = NeighbourDtoBuilder.aNeighbourDto().withId(location.getId()).withLatitude(location.getLatitude())
-                .withLongitude(location.getLongitude()).build();
+        NeighbourDto converted = NeighbourDtoBuilder.aNeighbourDto().withId(location.getId()).withY(location.getLatitude())
+                .withX(location.getLongitude()).build();
         return converted;
     }
 }

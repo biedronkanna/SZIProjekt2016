@@ -14,7 +14,7 @@ class ApplicationConfig extends Neo4jConfiguration {
 
 	@Override
 	public Neo4jServer neo4jServer() {
-		return new RemoteServer("http://localhost:7474","neo4j","wozek");
+		return new RemoteServer("http://wozek:iRe10PTvpllgRLREXkha@wozek.sb04.stations.graphenedb.com:24789");
 	}
 
 	@Override

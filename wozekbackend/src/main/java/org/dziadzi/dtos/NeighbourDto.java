@@ -5,8 +5,8 @@ package org.dziadzi.dtos;
  */
 public class NeighbourDto {
     private Long id;
-    private Integer latitude;
-    private Integer longitude;
+    private Integer y;
+    private Integer x;
 
     public Long getId() {
         return id;
@@ -16,19 +16,19 @@ public class NeighbourDto {
         this.id = id;
     }
 
-    public Integer getLatitude() {
-        return latitude;
+    public Integer getY() {
+        return y;
     }
 
-    public void setLatitude(Integer latitude) {
-        this.latitude = latitude;
+    public void setY(Integer y) {
+        this.y = y;
     }
 
-    public Integer getLongitude() {
-        return longitude;
+    public Integer getX() {
+        return x;
     }
 
-    public void setLongitude(Integer longitude) {
-        this.longitude = longitude;
+    public void setX(Integer x) {
+        this.x = x;
     }
 }

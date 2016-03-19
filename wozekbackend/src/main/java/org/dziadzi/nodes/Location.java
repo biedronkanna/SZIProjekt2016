@@ -21,7 +21,7 @@ public class Location {
     private Integer latitude;
 
     @Relationship(type = "IS_NEIGHBOUR", direction = Relationship.UNDIRECTED)
-    public Set<Location> neighbours = new HashSet<Location>();
+    private Set<Location> neighbours = new HashSet<Location>();
 
     @Relationship(type = "IS_LOCATED_AT", direction = Relationship.INCOMING)
     private Item item;
@@ -59,5 +59,13 @@ public class Location {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public Set<Location> getNeighbours() {
+        return neighbours;
+    }
+
+    public void setNeighbours(Set<Location> neighbours) {
+        this.neighbours = neighbours;
     }
 }

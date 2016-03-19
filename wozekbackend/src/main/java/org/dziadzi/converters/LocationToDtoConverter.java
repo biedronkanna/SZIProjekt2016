@@ -19,8 +19,8 @@ public class LocationToDtoConverter implements Function<Location, LocationDto> {
 
     @Override
     public LocationDto apply(Location location) {
-        LocationDto converted = LocationDtoBuilder.aLocationDto().withId(location.getId()).withLatitude(location.getLatitude())
-                .withLongitude(location.getLongitude()).withNeighbours(location.neighbours.stream().map(neighbourConverter).collect(Collectors.toSet())).build();
+        LocationDto converted = LocationDtoBuilder.aLocationDto().withId(location.getId()).withY(location.getLatitude())
+                .withX(location.getLongitude()).withNeighbours(location.getNeighbours().stream().map(neighbourConverter).collect(Collectors.toSet())).build();
 
         return converted;
     }

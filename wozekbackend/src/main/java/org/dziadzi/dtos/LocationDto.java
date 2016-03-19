@@ -8,8 +8,8 @@ import java.util.Set;
  */
 public class LocationDto {
     private Long id;
-    private Integer latitude;
-    private Integer longitude;
+    private Integer y;
+    private Integer x;
     private Set<NeighbourDto> neighbours = new HashSet<>();
 
     public Long getId() {
@@ -20,20 +20,20 @@ public class LocationDto {
         this.id = id;
     }
 
-    public Integer getLatitude() {
-        return latitude;
+    public Integer getY() {
+        return y;
     }
 
-    public void setLatitude(Integer latitude) {
-        this.latitude = latitude;
+    public void setY(Integer y) {
+        this.y = y;
     }
 
-    public Integer getLongitude() {
-        return longitude;
+    public Integer getX() {
+        return x;
     }
 
-    public void setLongitude(Integer longitude) {
-        this.longitude = longitude;
+    public void setX(Integer x) {
+        this.x = x;
     }
 
     public Set<NeighbourDto> getNeighbours() {
