@@ -28,18 +28,18 @@ public class LocationServiceImpl implements LocationService {
 	private LocationToDtoConverter converter;
 
 	@Override
-	public List<LocationDto> getLocationsRow(Integer latitude) {
+	public List<LocationDto> getLocationsRow(Integer y) {
 
-		List<Location> row = locationRepository.findByLatitude(latitude);
+		List<Location> row = locationRepository.findByY(y);
 		return row.stream().map(converter).collect(Collectors.toList());
 
 	}
 
 	@Override
-	public void createLocations(int maxLongitude, int maxLatitude) {
-		for (int latitude = 0; latitude < maxLatitude; latitude++) {
-			for (int longitude = 0; longitude < maxLongitude; longitude++) {
-				Location toSave = aLocation().withLongitude(longitude).withLatitude(latitude)
+	public void createLocations(int maxX, int maxY) {
+		for (int y = 0; y < maxY; y++) {
+			for (int x = 0; x < maxX; x++) {
+				Location toSave = aLocation().withX(x).withY(y)
 						.build();
 				addNeighbours(toSave);
 				locationRepository.save(toSave, 1);
@@ -49,19 +49,19 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public Location getLocationEntity(int longitude, int latitude) {
-		return locationRepository.findByLongitudeAndLatitude(longitude, latitude);
+	public Location getLocationEntity(int x, int y) {
+		return locationRepository.findByXAndY(x, y);
 	}
 
 	private void addNeighbours(Location toSave) {
-		Location left = locationRepository.findByLongitudeAndLatitude(toSave.getLongitude() - 1,
-				toSave.getLatitude());
+		Location left = locationRepository.findByXAndY(toSave.getX() - 1,
+				toSave.getY());
 		Location upperLeft = locationRepository
-				.findByLongitudeAndLatitude(toSave.getLongitude() - 1, toSave.getLatitude() - 1);
-		Location upper = locationRepository.findByLongitudeAndLatitude(toSave.getLongitude(),
-				toSave.getLatitude() - 1);
+				.findByXAndY(toSave.getX() - 1, toSave.getY() - 1);
+		Location upper = locationRepository.findByXAndY(toSave.getX(),
+				toSave.getY() - 1);
 		Location upperRight = locationRepository
-				.findByLongitudeAndLatitude(toSave.getLongitude() + 1, toSave.getLatitude() - 1);
+				.findByXAndY(toSave.getX() + 1, toSave.getY() - 1);
 		List<Location> potentialNeighbours = newArrayList(left, upperLeft, upperRight, upper);
 		potentialNeighbours.stream().filter(e -> e != null)
 				.forEach(e -> toSave.getNeighbours().add(e));
@@ -84,9 +84,9 @@ public class LocationServiceImpl implements LocationService {
 	public List<Location> getLocations(List<Integer> longitues, List<Integer> lattitudes) {
 		List<Location> toReturn = new ArrayList<>();
 		for (int i = 0; i < longitues.size(); i++) {
-			Location byLongitudeAndLatitude = locationRepository
-					.findByLongitudeAndLatitude(longitues.get(i), lattitudes.get(i));
-			toReturn.add(byLongitudeAndLatitude);
+			Location byXAndY = locationRepository
+					.findByXAndY(longitues.get(i), lattitudes.get(i));
+			toReturn.add(byXAndY);
 		}
 		return toReturn;
 	}

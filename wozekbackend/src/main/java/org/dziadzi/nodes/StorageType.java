@@ -1,8 +1,7 @@
 package org.dziadzi.nodes;
 
-import org.neo4j.ogm.annotation.GraphId;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
+import org.dziadzi.nodes.enums.StorageTypeName;
+import org.neo4j.ogm.annotation.*;
 
 import java.util.Set;
 
@@ -12,39 +11,46 @@ import java.util.Set;
 @NodeEntity
 public class StorageType {
 
-    @GraphId
-    private Long id;
+	@GraphId
+	private Long id;
 
-    @Relationship(type = "SHOULD_BE_STORED_IN", direction = Relationship.INCOMING)
-    private
-    Set<ItemType> storageTypeFor;
+	private StorageTypeName name;
 
-    @Relationship(type = "IS_TYPE_OF")
-    private
-    Set<Storage> instances;
+	@Relationship(type = "SHOULD_BE_STORED_IN", direction = Relationship.INCOMING)
+	private Set<ItemType> storageTypeFor;
 
+	@Relationship(type = "IS_STORAGE_TYPE_OF")
+	private Set<Storage> instances;
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Set<ItemType> getStorageTypeFor() {
-        return storageTypeFor;
-    }
+	public Set<ItemType> getStorageTypeFor() {
+		return storageTypeFor;
+	}
 
-    public void setStorageTypeFor(Set<ItemType> storageTypeFor) {
-        this.storageTypeFor = storageTypeFor;
-    }
+	public void setStorageTypeFor(Set<ItemType> storageTypeFor) {
+		this.storageTypeFor = storageTypeFor;
+	}
 
-    public Set<Storage> getInstances() {
-        return instances;
-    }
+	public Set<Storage> getInstances() {
+		return instances;
+	}
 
-    public void setInstances(Set<Storage> instances) {
-        this.instances = instances;
-    }
+	public void setInstances(Set<Storage> instances) {
+		this.instances = instances;
+	}
+
+	public StorageTypeName getName() {
+		return name;
+	}
+
+	public void setName(StorageTypeName name) {
+		this.name = name;
+	}
 }

@@ -3,9 +3,13 @@ package org.dziadzi.dtos;
 /**
  * Created by DELL on 2016-04-15.
  */
-public class ItemTypeDto {
-	private Long id;
-	private String name;
+public class StorageDto {
+
+    private Long id;
+
+    private String name;
+
+    private StorageTypeDto type;
 
     public Long getId() {
         return id;
@@ -21,5 +25,13 @@ public class ItemTypeDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public StorageTypeDto getType() {
+        return type;
+    }
+
+    public void setType(StorageTypeDto type) {
+        this.type = type;
     }
 }

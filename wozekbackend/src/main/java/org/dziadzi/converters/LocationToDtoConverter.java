@@ -15,13 +15,13 @@ import java.util.function.Function;
 @Component
 public class LocationToDtoConverter implements Function<Location, LocationDto> {
     @Autowired
-    private ItemToDtoConverter itemToDtoConverter;
+    private StorageToDtoConverter storageToDtoConverter;
 
     @Override
     public LocationDto apply(Location location) {
-        StorageDto convertedItem = itemToDtoConverter.apply(location.getItem());
-        LocationDto converted = LocationDtoBuilder.aLocationDto().withId(location.getId()).withY(location.getLatitude())
-                .withX(location.getLongitude()).withStorage(convertedItem).build();
+        StorageDto convertedItem = storageToDtoConverter.apply(location.getStorage());
+        LocationDto converted = LocationDtoBuilder.aLocationDto().withId(location.getId()).withY(location.getY())
+                .withX(location.getX()).withStorage(convertedItem).build();
 
         return converted;
     }

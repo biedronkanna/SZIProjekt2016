@@ -7,7 +7,7 @@ public class LocationDto {
     private Long id;
     private Integer y;
     private Integer x;
-    private StorageDto item;
+    private StorageDto storage;
 
     public Long getId() {
         return id;
@@ -35,10 +35,10 @@ public class LocationDto {
 
 
     public StorageDto getStorage() {
-        return item;
+        return storage;
     }
 
-    public void setStorage(StorageDto item) {
-        this.item = item;
+    public void setStorage(StorageDto storage) {
+        this.storage = storage;
     }
 }

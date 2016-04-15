@@ -11,8 +11,8 @@ import java.util.Set;
  */
 public class LocationBuilder {
     private Long id;
-    private Integer longitude;
-    private Integer latitude;
+    private Integer x;
+    private Integer y;
     private Set<Location> neighbours = new HashSet<Location>();
     private Item item;
 
@@ -28,13 +28,13 @@ public class LocationBuilder {
         return this;
     }
 
-    public LocationBuilder withLongitude(Integer longitude) {
-        this.longitude = longitude;
+    public LocationBuilder withX(Integer x) {
+        this.x = x;
         return this;
     }
 
-    public LocationBuilder withLatitude(Integer latitude) {
-        this.latitude = latitude;
+    public LocationBuilder withY(Integer y) {
+        this.y = y;
         return this;
     }
 
@@ -49,14 +49,14 @@ public class LocationBuilder {
     }
 
     public LocationBuilder but() {
-        return aLocation().withId(id).withLongitude(longitude).withLatitude(latitude).withNeighbours(neighbours).withItem(item);
+        return aLocation().withId(id).withX(x).withY(y).withNeighbours(neighbours).withItem(item);
     }
 
     public Location build() {
         Location location = new Location();
         location.setId(id);
-        location.setLongitude(longitude);
-        location.setLatitude(latitude);
+        location.setX(x);
+        location.setY(y);
         location.setNeighbours(neighbours);
         location.setItem(item);
         return location;

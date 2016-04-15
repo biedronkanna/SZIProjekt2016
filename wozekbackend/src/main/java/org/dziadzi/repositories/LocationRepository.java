@@ -17,8 +17,8 @@ public interface LocationRepository extends GraphRepository<Location>{
             "RETURN p")
     Iterable<Map<String,Object>> findShortestPath(String idOne, String idTwo);
 
-    Location findByLongitudeAndLatitude(Integer longitude, Integer latitude);
-    List<Location> findByLatitude(Integer latitude);
+    Location findByXAndY(Integer x, Integer y);
+    List<Location> findByY(Integer y);
 
 
 

@@ -9,11 +9,11 @@ import java.util.List;
  * Created by DELL on 2016-04-15.
  */
 public interface LocationService {
-    List<LocationDto> getLocationsRow(Integer latitude);
+    List<LocationDto> getLocationsRow(Integer y);
 
-    void createLocations(int maxLongitude, int maxLatitude);
+    void createLocations(int maxX, int maxY);
 
-    Location getLocationEntity(int longitude, int latitude);
+    Location getLocationEntity(int x, int y);
 
     void deleteLocations();
 
