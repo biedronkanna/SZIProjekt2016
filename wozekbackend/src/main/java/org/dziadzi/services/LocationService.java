@@ -1,6 +1,7 @@
 package org.dziadzi.services;
 
 import org.dziadzi.dtos.LocationDto;
+import org.dziadzi.nodes.Location;
 
 import java.util.List;
 
@@ -12,9 +13,12 @@ public interface LocationService {
 
     void createLocations(int maxLongitude, int maxLatitude);
 
+    Location getLocationEntity(int longitude, int latitude);
 
     void deleteLocations();
 
 
     Long count();
+
+    List<Location> getLocations(List<Integer> longitues, List<Integer> lattitudes);
 }

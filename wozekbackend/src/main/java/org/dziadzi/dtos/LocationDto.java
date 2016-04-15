@@ -1,8 +1,5 @@
 package org.dziadzi.dtos;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Created by kkuc on 2016-03-18.
  */
@@ -10,7 +7,7 @@ public class LocationDto {
     private Long id;
     private Integer y;
     private Integer x;
-    private Set<NeighbourDto> neighbours = new HashSet<>();
+    private StorageDto item;
 
     public Long getId() {
         return id;
@@ -36,11 +33,12 @@ public class LocationDto {
         this.x = x;
     }
 
-    public Set<NeighbourDto> getNeighbours() {
-        return neighbours;
+
+    public StorageDto getStorage() {
+        return item;
     }
 
-    public void setNeighbours(Set<NeighbourDto> neighbours) {
-        this.neighbours = neighbours;
+    public void setStorage(StorageDto item) {
+        this.item = item;
     }
 }

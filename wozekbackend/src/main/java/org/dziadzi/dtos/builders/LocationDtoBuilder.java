@@ -1,19 +1,16 @@
 package org.dziadzi.dtos.builders;
 
+import org.dziadzi.dtos.StorageDto;
 import org.dziadzi.dtos.LocationDto;
-import org.dziadzi.dtos.NeighbourDto;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
- * Created by kkuc on 2016-03-19.
+ * Created by DELL on 2016-04-15.
  */
 public class LocationDtoBuilder {
     private Long id;
     private Integer y;
     private Integer x;
-    private Set<NeighbourDto> neighbours = new HashSet<>();
+    private StorageDto item;
 
     private LocationDtoBuilder() {
     }
@@ -37,13 +34,13 @@ public class LocationDtoBuilder {
         return this;
     }
 
-    public LocationDtoBuilder withNeighbours(Set<NeighbourDto> neighbours) {
-        this.neighbours = neighbours;
+    public LocationDtoBuilder withStorage(StorageDto item) {
+        this.item = item;
         return this;
     }
 
     public LocationDtoBuilder but() {
-        return aLocationDto().withId(id).withY(y).withX(x).withNeighbours(neighbours);
+        return aLocationDto().withId(id).withY(y).withX(x).withStorage(item);
     }
 
     public LocationDto build() {
@@ -51,7 +48,7 @@ public class LocationDtoBuilder {
         locationDto.setId(id);
         locationDto.setY(y);
         locationDto.setX(x);
-        locationDto.setNeighbours(neighbours);
+        locationDto.setStorage(item);
         return locationDto;
     }
 }

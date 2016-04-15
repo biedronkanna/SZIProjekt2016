@@ -8,6 +8,7 @@ import org.dziadzi.services.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,7 @@ public class LocationServiceImpl implements LocationService {
 	private LocationToDtoConverter converter;
 
 	@Override
-    public List<LocationDto> getLocationsRow(Integer latitude) {
+	public List<LocationDto> getLocationsRow(Integer latitude) {
 
 		List<Location> row = locationRepository.findByLatitude(latitude);
 		return row.stream().map(converter).collect(Collectors.toList());
@@ -35,7 +36,7 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-    public void createLocations(int maxLongitude, int maxLatitude) {
+	public void createLocations(int maxLongitude, int maxLatitude) {
 		for (int latitude = 0; latitude < maxLatitude; latitude++) {
 			for (int longitude = 0; longitude < maxLongitude; longitude++) {
 				Location toSave = aLocation().withLongitude(longitude).withLatitude(latitude)
@@ -45,6 +46,11 @@ public class LocationServiceImpl implements LocationService {
 			}
 
 		}
+	}
+
+	@Override
+	public Location getLocationEntity(int longitude, int latitude) {
+		return locationRepository.findByLongitudeAndLatitude(longitude, latitude);
 	}
 
 	private void addNeighbours(Location toSave) {
@@ -63,15 +69,26 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-    @RequestMapping(method = RequestMethod.DELETE)
+	@RequestMapping(method = RequestMethod.DELETE)
 	public void deleteLocations() {
 		locationRepository.deleteAll();
 	}
 
 	@Override
-    @RequestMapping(value = "count", method = RequestMethod.GET)
+	@RequestMapping(value = "count", method = RequestMethod.GET)
 	public Long count() {
 		return locationRepository.count();
+	}
+
+	@Override
+	public List<Location> getLocations(List<Integer> longitues, List<Integer> lattitudes) {
+		List<Location> toReturn = new ArrayList<>();
+		for (int i = 0; i < longitues.size(); i++) {
+			Location byLongitudeAndLatitude = locationRepository
+					.findByLongitudeAndLatitude(longitues.get(i), lattitudes.get(i));
+			toReturn.add(byLongitudeAndLatitude);
+		}
+		return toReturn;
 	}
 
 }

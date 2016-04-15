@@ -1,5 +1,6 @@
 package org.dziadzi.nodes;
 
+import org.dziadzi.nodes.enums.ItemTypeName;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
@@ -15,6 +16,7 @@ public class ItemType {
 
     @GraphId
     private Long id;
+    private ItemTypeName name;
 
     @Relationship(type = "SHOULD_BE_STORED_IN")
     private StorageType storageType;
@@ -38,5 +40,14 @@ public class ItemType {
 
     public void setItems(Set<Item> items) {
         this.items = items;
+    }
+
+
+    public ItemTypeName getName() {
+        return name;
+    }
+
+    public void setName(ItemTypeName name) {
+        this.name = name;
     }
 }
