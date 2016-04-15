@@ -22,5 +22,4 @@ public interface LocationRepository extends GraphRepository<Location>{
 
 
 
-
 }

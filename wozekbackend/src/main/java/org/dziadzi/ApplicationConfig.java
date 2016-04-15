@@ -11,16 +11,14 @@ import org.springframework.data.neo4j.server.RemoteServer;
 @EnableNeo4jRepositories
 class ApplicationConfig extends Neo4jConfiguration {
 
-
 	@Override
 	public Neo4jServer neo4jServer() {
-		return new RemoteServer("http://wozek:iRe10PTvpllgRLREXkha@wozek.sb04.stations.graphenedb.com:24789");
+		return new RemoteServer("http://localhost:7474", "neo4j", "admin");
 	}
 
 	@Override
 	public SessionFactory getSessionFactory() {
 		return new SessionFactory("org.dziadzi.nodes");
 	}
-
 
 }

@@ -1,2 +1,4 @@
 *.iml
 .idea
+wozekbackend/.gradle
+wozekbackend/build/
