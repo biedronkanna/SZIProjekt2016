@@ -1,6 +1,6 @@
 package org.dziadzi.nodes;
 
-import org.dziadzi.nodes.traversal.Action;
+import org.dziadzi.nodes.enums.traversal.Action;
 import org.neo4j.ogm.annotation.*;
 
 import java.util.*;
@@ -29,9 +29,11 @@ public class Location {
 	@Relationship(type = "IS_PARENT_OF", direction = Relationship.INCOMING)
 	private Location parent;
 
-	private Integer gCost;
+	private Integer gCost=0;
 
-	private Integer hCost;
+	private Integer hCost=0;
+
+    private Boolean isDifficultTraverse=false;
 
 	private List<Action> reachedBy = new ArrayList<>();
 
@@ -117,5 +119,13 @@ public class Location {
 
     public void setReachedBy(List<Action> reachedBy) {
         this.reachedBy = reachedBy;
+    }
+
+    public Boolean getDificultTraverse() {
+        return isDifficultTraverse;
+    }
+
+    public void setDificultTraverse(Boolean dificultTraverse) {
+        isDifficultTraverse = dificultTraverse;
     }
 }

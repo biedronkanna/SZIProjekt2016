@@ -56,13 +56,15 @@ public class LocationServiceImpl implements LocationService {
 	private void addNeighbours(Location toSave) {
 		Location left = locationRepository.findByXAndY(toSave.getX() - 1,
 				toSave.getY());
-		Location upperLeft = locationRepository
-				.findByXAndY(toSave.getX() - 1, toSave.getY() - 1);
+		//Location upperLeft = locationRepository
+		//		.findByXAndY(toSave.getX() - 1, toSave.getY() - 1);
 		Location upper = locationRepository.findByXAndY(toSave.getX(),
 				toSave.getY() - 1);
-		Location upperRight = locationRepository
-				.findByXAndY(toSave.getX() + 1, toSave.getY() - 1);
-		List<Location> potentialNeighbours = newArrayList(left, upperLeft, upperRight, upper);
+		//Location upperRight = locationRepository
+		//		.findByXAndY(toSave.getX() + 1, toSave.getY() - 1);
+		List<Location> potentialNeighbours = newArrayList(left,
+				//upperLeft, upperRight,
+				upper);
 		potentialNeighbours.stream().filter(e -> e != null)
 				.forEach(e -> toSave.getNeighbours().add(e));
 

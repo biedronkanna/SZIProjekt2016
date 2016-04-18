@@ -1,7 +1,7 @@
 package org.dziadzi.services;
 
 import org.dziadzi.nodes.Location;
-import org.dziadzi.nodes.traversal.Action;
+import org.dziadzi.nodes.enums.traversal.Action;
 
 import java.util.List;
 
