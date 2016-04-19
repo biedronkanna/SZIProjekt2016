@@ -23,6 +23,9 @@ public class Location {
 	@Relationship(type = "IS_LOCATED_AT", direction = Relationship.INCOMING)
 	private Item item;
 
+	@Relationship(type = "IS_LOCATED_AT", direction = Relationship.INCOMING)
+	private ForkLift forkLift;
+
 	@Relationship(type = "IS_SITUATED_AT", direction = Relationship.INCOMING)
 	private Storage storage;
 
@@ -128,4 +131,12 @@ public class Location {
     public void setDificultTraverse(Boolean dificultTraverse) {
         isDifficultTraverse = dificultTraverse;
     }
+
+	public ForkLift getForkLift() {
+		return forkLift;
+	}
+
+	public void setForkLift(ForkLift forkLift) {
+		this.forkLift = forkLift;
+	}
 }
