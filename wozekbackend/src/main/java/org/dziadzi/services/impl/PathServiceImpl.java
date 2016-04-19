@@ -31,11 +31,15 @@ public class PathServiceImpl implements PathService {
 	@Autowired
 	private ForkLiftRepository forkLiftRepository;
 
-
 	@Override
 	public List<Action> findShortestPath(Location start, Location end) {
 		PriorityQueue<Location> fringe = new PriorityQueue<>(
-				(Location l1, Location l2) -> l1.getfCost() - l2.getfCost());
+				(Location l1, Location l2) -> {
+					int fDiff = l1.getfCost() - l2.getfCost();
+					int hDiff = l1.gethCost() - l2.gethCost();
+					if(fDiff!=0) return fDiff;
+					return hDiff;
+				});
 		Set<Location> explored = new HashSet<>();
 
 		fringe.add(start);
@@ -77,23 +81,25 @@ public class PathServiceImpl implements PathService {
 			forkLift.setDirection(nextDirection);
 			forkLift.setLocation(nextLocation);
 		}
-		forkLiftRepository.save(forkLift,1);
+		forkLiftRepository.save(forkLift, 1);
 		return toReturn;
 	}
 
-	private List<Action> provideSingleStepActions(Direction fd,
-			Direction nd) {
+	private List<Action> provideSingleStepActions(Direction fd, Direction nd) {
 		List<Action> toReturn = new ArrayList<>();
-		if((nd==N&&fd==E)||(nd==E&&fd==S)||(nd==S&&fd==W)||(nd==W&&fd==N)){
+		if ((nd == N && fd == E) || (nd == E && fd == S) || (nd == S && fd == W)
+				|| (nd == W && fd == N)) {
 			toReturn.add(LEFT);
 		}
-		if((nd==N&&fd==W)||(nd==E&&fd==N)||(nd==S&&fd==E)||(nd==W&&fd==S)){
+		if ((nd == N && fd == W) || (nd == E && fd == N) || (nd == S && fd == E)
+				|| (nd == W && fd == S)) {
 			toReturn.add(RIGHT);
-			}
-		
+		}
+
 		toReturn.add(Action.MOVE);
-		
-		if(toReturn.size()>2) throw new IllegalStateException();
+
+		if (toReturn.size() > 2)
+			throw new IllegalStateException();
 		return toReturn;
 	}
 

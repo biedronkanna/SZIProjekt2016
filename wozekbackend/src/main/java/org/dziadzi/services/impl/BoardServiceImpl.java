@@ -3,8 +3,8 @@ package org.dziadzi.services.impl;
 import org.dziadzi.dtos.LocationDto;
 import org.dziadzi.nodes.*;
 import org.dziadzi.nodes.builders.*;
-import org.dziadzi.nodes.enums.ItemTypeName;
 import org.dziadzi.nodes.enums.StorageTypeName;
+import org.dziadzi.repositories.ForkLiftRepository;
 import org.dziadzi.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import static org.dziadzi.nodes.enums.traversal.Direction.N;
 
 /**
  * Created by DELL on 2016-04-15.
@@ -31,6 +33,9 @@ public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	private StorageService storageService;
+
+	@Autowired
+	private ForkLiftRepository forkLiftRepository;
 
 	@Override
 	@RequestMapping
@@ -62,8 +67,7 @@ public class BoardServiceImpl implements BoardService {
 			StorageType type = StorageTypeBuilder.aStorageType()
 					.withName(StorageTypeName.FOOD_STORAGE).build();
 			Storage storage = StorageBuilder.aStorage().withType(type)
-					.withName(type.getName().name() + " " + location.getX() + " "
-							+ location.getY())
+					.withName(type.getName().name() + " " + location.getX() + " " + location.getY())
 					.build();
 			storageService.createStorage(storage, location);
 		}
@@ -77,11 +81,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	private void setupForklift() {
-		ItemType forkliftType = ItemTypeBuilder.anItemType().withName(ItemTypeName.FORKLIFT)
-				.build();
-		Item one = ItemBuilder.anItem().withName("forklift one").withType(forkliftType).build();
 		Location locationOne = locationService.getLocationEntity(1, 1);
-		Item oneCreated = itemService.createItem(one);
-		itemService.locateItem(oneCreated, locationOne);
+		ForkLift forkLift = ForkLiftBuilder.aForkLift().withLocation(locationOne).withDirection(N)
+				.build();
+		forkLiftRepository.save(forkLift, 1);
 	}
 }
