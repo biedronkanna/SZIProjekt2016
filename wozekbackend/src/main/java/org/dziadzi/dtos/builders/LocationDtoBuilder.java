@@ -1,16 +1,16 @@
 package org.dziadzi.dtos.builders;
 
-import org.dziadzi.dtos.StorageDto;
-import org.dziadzi.dtos.LocationDto;
+import org.dziadzi.dtos.*;
 
 /**
- * Created by DELL on 2016-04-15.
+ * Created by DELL on 2016-04-20.
  */
 public class LocationDtoBuilder {
     private Long id;
     private Integer y;
     private Integer x;
-    private StorageDto item;
+    private StorageDto storage;
+    private ForkLiftDto forkLift;
 
     private LocationDtoBuilder() {
     }
@@ -34,13 +34,18 @@ public class LocationDtoBuilder {
         return this;
     }
 
-    public LocationDtoBuilder withStorage(StorageDto item) {
-        this.item = item;
+    public LocationDtoBuilder withStorage(StorageDto storage) {
+        this.storage = storage;
+        return this;
+    }
+
+    public LocationDtoBuilder withForkLift(ForkLiftDto forkLift) {
+        this.forkLift = forkLift;
         return this;
     }
 
     public LocationDtoBuilder but() {
-        return aLocationDto().withId(id).withY(y).withX(x).withStorage(item);
+        return aLocationDto().withId(id).withY(y).withX(x).withStorage(storage).withForkLift(forkLift);
     }
 
     public LocationDto build() {
@@ -48,7 +53,8 @@ public class LocationDtoBuilder {
         locationDto.setId(id);
         locationDto.setY(y);
         locationDto.setX(x);
-        locationDto.setStorage(item);
+        locationDto.setStorage(storage);
+        locationDto.setForkLift(forkLift);
         return locationDto;
     }
 }

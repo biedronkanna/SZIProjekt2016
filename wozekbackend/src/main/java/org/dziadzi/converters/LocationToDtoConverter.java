@@ -1,7 +1,6 @@
 package org.dziadzi.converters;
 
-import org.dziadzi.dtos.StorageDto;
-import org.dziadzi.dtos.LocationDto;
+import org.dziadzi.dtos.*;
 import org.dziadzi.dtos.builders.LocationDtoBuilder;
 import org.dziadzi.nodes.Location;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +15,13 @@ import java.util.function.Function;
 public class LocationToDtoConverter implements Function<Location, LocationDto> {
     @Autowired
     private StorageToDtoConverter storageToDtoConverter;
-
+    @Autowired
+    private ForkLiftToDtoConverter forkLiftToDtoConverter;
     @Override
     public LocationDto apply(Location location) {
         StorageDto convertedItem = storageToDtoConverter.apply(location.getStorage());
-        LocationDto converted = LocationDtoBuilder.aLocationDto().withId(location.getId()).withY(location.getY())
+        ForkLiftDto forkLiftDto = forkLiftToDtoConverter.apply(location.getForkLift());
+        LocationDto converted = LocationDtoBuilder.aLocationDto().withForkLift(forkLiftDto).withId(location.getId()).withY(location.getY())
                 .withX(location.getX()).withStorage(convertedItem).build();
 
         return converted;

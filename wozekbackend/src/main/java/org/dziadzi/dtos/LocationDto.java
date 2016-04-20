@@ -8,6 +8,7 @@ public class LocationDto {
     private Integer y;
     private Integer x;
     private StorageDto storage;
+    private ForkLiftDto forkLift;
 
     public Long getId() {
         return id;
@@ -40,5 +41,13 @@ public class LocationDto {
 
     public void setStorage(StorageDto storage) {
         this.storage = storage;
+    }
+
+    public ForkLiftDto getForkLift() {
+        return forkLift;
+    }
+
+    public void setForkLift(ForkLiftDto forkLift) {
+        this.forkLift = forkLift;
     }
 }
