@@ -5,6 +5,7 @@ import org.dziadzi.nodes.Location;
 import org.dziadzi.nodes.enums.traversal.Action;
 import org.dziadzi.nodes.enums.traversal.Direction;
 import org.dziadzi.repositories.ForkLiftRepository;
+import org.dziadzi.repositories.LocationRepository;
 import org.dziadzi.services.PathService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,9 @@ public class PathServiceImpl implements PathService {
 	@Autowired
 	private ForkLiftRepository forkLiftRepository;
 
+	@Autowired
+	private LocationRepository locationRepository;
+
 	@Override
 	public List<Action> findShortestPath(Location start, Location end) {
 		PriorityQueue<Location> fringe = new PriorityQueue<>(
@@ -47,6 +51,7 @@ public class PathServiceImpl implements PathService {
 		ForkLift forkLift = start.getForkLift();
 		while (true) {
 			current = fringe.poll();
+			current= locationRepository.findOne(current.getId());
 			explored.add(current);
 			if (current.getId() == end.getId()) {
 				break;
@@ -62,7 +67,7 @@ public class PathServiceImpl implements PathService {
 					if (neighbourIsNotInFringe) {
 						fringe.add(neighbour);
 					}
-				}
+			}
 			}
 		}
 		List<Location> path = rebuildPath(start, end);
@@ -156,7 +161,8 @@ public class PathServiceImpl implements PathService {
 	}
 
 	private boolean newPathIsShorter(Location current, Location neighbour) {
-		return neighbour.getgCost() > calculateDistanceToStart(current, neighbour);
+		boolean newIsShorter = neighbour.getgCost() > calculateDistanceToStart(current, neighbour);
+		return newIsShorter;
 	}
 
 	private boolean isNotTraversable(Location neighbour) {

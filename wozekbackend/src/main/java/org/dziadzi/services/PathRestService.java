@@ -8,5 +8,5 @@ import java.util.List;
  * Created by DELL on 2016-04-19.
  */
 public interface PathRestService {
-    List<Action> getPath(Long startId, Long endId);
+    List<Action> getPath(Long endId);
 }
