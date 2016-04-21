@@ -13,17 +13,20 @@ import java.util.function.Function;
  */
 @Component
 public class LocationToDtoConverter implements Function<Location, LocationDto> {
-    @Autowired
-    private StorageToDtoConverter storageToDtoConverter;
-    @Autowired
-    private ForkLiftToDtoConverter forkLiftToDtoConverter;
-    @Override
-    public LocationDto apply(Location location) {
-        StorageDto convertedItem = storageToDtoConverter.apply(location.getStorage());
-        ForkLiftDto forkLiftDto = forkLiftToDtoConverter.apply(location.getForkLift());
-        LocationDto converted = LocationDtoBuilder.aLocationDto().withForkLift(forkLiftDto).withId(location.getId()).withY(location.getY())
-                .withX(location.getX()).withStorage(convertedItem).build();
+	@Autowired
+	private StorageToDtoConverter storageToDtoConverter;
+	@Autowired
+	private ForkLiftToDtoConverter forkLiftToDtoConverter;
 
-        return converted;
-    }
+	@Override
+	public LocationDto apply(Location location) {
+		StorageDto convertedItem = storageToDtoConverter.apply(location.getStorage());
+		ForkLiftDto forkLiftDto = forkLiftToDtoConverter.apply(location.getForkLift());
+		LocationDto converted = LocationDtoBuilder.aLocationDto().withForkLift(forkLiftDto)
+				.withId(location.getId()).withY(location.getY()).withX(location.getX())
+				.withStorage(convertedItem).withDifficultToTraverse(location.getDificultTraverse())
+				.build();
+
+		return converted;
+	}
 }

@@ -9,6 +9,9 @@ public class LocationDto {
     private Integer x;
     private StorageDto storage;
     private ForkLiftDto forkLift;
+    private boolean difficultToTraverse;
+
+
 
     public Long getId() {
         return id;
@@ -49,5 +52,14 @@ public class LocationDto {
 
     public void setForkLift(ForkLiftDto forkLift) {
         this.forkLift = forkLift;
+    }
+
+
+    public boolean getDifficultToTraverse() {
+        return difficultToTraverse;
+    }
+
+    public void setDifficultToTraverse(boolean difficultToTraverse) {
+        this.difficultToTraverse = difficultToTraverse;
     }
 }

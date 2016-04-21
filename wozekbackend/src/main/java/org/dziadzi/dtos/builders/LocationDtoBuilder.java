@@ -3,7 +3,7 @@ package org.dziadzi.dtos.builders;
 import org.dziadzi.dtos.*;
 
 /**
- * Created by DELL on 2016-04-20.
+ * Created by DELL on 2016-04-21.
  */
 public class LocationDtoBuilder {
     private Long id;
@@ -11,6 +11,7 @@ public class LocationDtoBuilder {
     private Integer x;
     private StorageDto storage;
     private ForkLiftDto forkLift;
+    private boolean difficultToTraverse;
 
     private LocationDtoBuilder() {
     }
@@ -44,8 +45,13 @@ public class LocationDtoBuilder {
         return this;
     }
 
+    public LocationDtoBuilder withDifficultToTraverse(boolean difficultToTraverse) {
+        this.difficultToTraverse = difficultToTraverse;
+        return this;
+    }
+
     public LocationDtoBuilder but() {
-        return aLocationDto().withId(id).withY(y).withX(x).withStorage(storage).withForkLift(forkLift);
+        return aLocationDto().withId(id).withY(y).withX(x).withStorage(storage).withForkLift(forkLift).withDifficultToTraverse(difficultToTraverse);
     }
 
     public LocationDto build() {
@@ -55,6 +61,7 @@ public class LocationDtoBuilder {
         locationDto.setX(x);
         locationDto.setStorage(storage);
         locationDto.setForkLift(forkLift);
+        locationDto.setDifficultToTraverse(difficultToTraverse);
         return locationDto;
     }
 }

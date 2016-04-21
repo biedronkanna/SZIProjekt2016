@@ -5,6 +5,7 @@ import org.dziadzi.nodes.*;
 import org.dziadzi.nodes.builders.*;
 import org.dziadzi.nodes.enums.StorageTypeName;
 import org.dziadzi.repositories.ForkLiftRepository;
+import org.dziadzi.repositories.LocationRepository;
 import org.dziadzi.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +23,8 @@ import static org.dziadzi.nodes.enums.traversal.Direction.N;
 @RestController("board")
 public class BoardServiceImpl implements BoardService {
 
-	private static final Integer MAX_LONGITUDE = 10;
-	private static final Integer MAX_LATITUDE = 10;
+	private static final Integer MAX_LONGITUDE = 50;
+	private static final Integer MAX_LATITUDE = 50;
 
 	@Autowired
 	private LocationService locationService;
@@ -36,6 +37,9 @@ public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	private ForkLiftRepository forkLiftRepository;
+
+	@Autowired
+	private LocationRepository locationRepository;
 
 	@Override
 	@RequestMapping
@@ -59,6 +63,16 @@ public class BoardServiceImpl implements BoardService {
 		List<Location> storageLocations = locationService
 				.getLocations(randomCoordinates(MAX_LONGITUDE), randomCoordinates(MAX_LATITUDE));
 		setUpStorages(storageLocations);
+		List<Location> difficultLocations = locationService
+				.getLocations(randomCoordinates(MAX_LONGITUDE), randomCoordinates(MAX_LATITUDE));
+		setUpDifficultToTraverse(difficultLocations);
+	}
+
+	private void setUpDifficultToTraverse(List<Location> difficultLocations) {
+		for (Location location : difficultLocations) {
+			location.setDificultTraverse(true);
+			locationRepository.save(location, 0);
+		}
 	}
 
 	private void setUpStorages(List<Location> storageLocations) {
@@ -74,7 +88,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	private List<Integer> randomCoordinates(Integer maxCoordinate) {
-		List<Integer> coords = IntStream.range(0, maxCoordinate).boxed()
+		List<Integer> coords = IntStream.range(1, maxCoordinate).boxed()
 				.collect(Collectors.toList());
 		Collections.shuffle(coords);
 		return coords;
