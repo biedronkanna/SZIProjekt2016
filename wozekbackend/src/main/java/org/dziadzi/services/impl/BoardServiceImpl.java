@@ -23,8 +23,8 @@ import static org.dziadzi.nodes.enums.traversal.Direction.N;
 @RestController("board")
 public class BoardServiceImpl implements BoardService {
 
-	private static final Integer MAX_LONGITUDE = 50;
-	private static final Integer MAX_LATITUDE = 50;
+	private static final Integer MAX_LONGITUDE = 10;
+	private static final Integer MAX_LATITUDE = 10;
 
 	@Autowired
 	private LocationService locationService;
