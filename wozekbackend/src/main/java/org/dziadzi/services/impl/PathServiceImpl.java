@@ -100,10 +100,15 @@ public class PathServiceImpl implements PathService {
 				|| (nd == W && fd == S)) {
 			toReturn.add(RIGHT);
 		}
+		if ((nd == N && fd == S) || (nd == S && fd == N) || (nd == W && fd == E)
+				|| (nd == E && fd == W)) {
+			toReturn.add(RIGHT);
+			toReturn.add(RIGHT);
+		}
 
 		toReturn.add(Action.MOVE);
 
-		if (toReturn.size() > 2)
+		if (toReturn.size() > 3)
 			throw new IllegalStateException();
 		return toReturn;
 	}
