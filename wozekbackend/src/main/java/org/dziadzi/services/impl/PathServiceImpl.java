@@ -27,7 +27,7 @@ import static org.dziadzi.nodes.enums.traversal.Direction.W;
 public class PathServiceImpl implements PathService {
 
 	public static final int NORMAL_COST = 10;
-	public static final int DIFFICULT_COST = 14;
+	public static final int DIFFICULT_COST = 36;
 
 	@Autowired
 	private ForkLiftRepository forkLiftRepository;
@@ -37,13 +37,13 @@ public class PathServiceImpl implements PathService {
 
 	@Override
 	public List<Action> findShortestPath(Location start, Location end) {
-		PriorityQueue<Location> fringe = new PriorityQueue<>(
-				(Location l1, Location l2) -> {
-					int fDiff = l1.getfCost() - l2.getfCost();
-					int hDiff = l1.gethCost() - l2.gethCost();
-					if(fDiff!=0) return fDiff;
-					return hDiff;
-				});
+		PriorityQueue<Location> fringe = new PriorityQueue<>((Location l1, Location l2) -> {
+			int fDiff = l1.getfCost() - l2.getfCost();
+			int hDiff = l1.gethCost() - l2.gethCost();
+			if (fDiff != 0)
+				return fDiff;
+			return hDiff;
+		});
 		Set<Location> explored = new HashSet<>();
 
 		fringe.add(start);
@@ -51,7 +51,7 @@ public class PathServiceImpl implements PathService {
 		ForkLift forkLift = start.getForkLift();
 		while (true) {
 			current = fringe.poll();
-			current= locationRepository.findOne(current.getId());
+			current = locationRepository.findOne(current.getId());
 			explored.add(current);
 			if (current.getId() == end.getId()) {
 				break;
@@ -67,12 +67,26 @@ public class PathServiceImpl implements PathService {
 					if (neighbourIsNotInFringe) {
 						fringe.add(neighbour);
 					}
-			}
+				}
 			}
 		}
+		clearCosts(fringe, explored);
 		List<Location> path = rebuildPath(start, end);
 		List<Action> actions = provideActions(forkLift, path);
 		return actions;
+	}
+
+	private void clearCosts(PriorityQueue<Location> fringe, Set<Location> explored) {
+		for (Location l : fringe) {
+			l.setgCost(0);
+			l.sethCost(0);
+			locationRepository.save(l, 0);
+		}
+		for (Location l : explored) {
+			l.setgCost(0);
+			l.sethCost(0);
+			locationRepository.save(l, 0);
+		}
 	}
 
 	private List<Action> provideActions(ForkLift forkLift, List<Location> path) {
@@ -152,6 +166,7 @@ public class PathServiceImpl implements PathService {
 	private void setCostsAndParent(Location end, Location current, Location neighbour) {
 		neighbour.setgCost(calculateDistanceToStart(current, neighbour));
 		neighbour.sethCost(estimateDistanceToEnd(neighbour, end));
+		locationRepository.save(neighbour, 0);
 		neighbour.setParent(current);
 	}
 
