@@ -95,7 +95,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	private void setupForklift() {
-		Location locationOne = locationService.getLocationEntity(1, 1);
+		Location locationOne = locationService.getLocationEntity(0, 0);
 		ForkLift forkLift = ForkLiftBuilder.aForkLift().withLocation(locationOne).withDirection(N)
 				.build();
 		forkLiftRepository.save(forkLift, 1);
