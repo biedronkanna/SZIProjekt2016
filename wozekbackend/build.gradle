@@ -34,7 +34,8 @@ dependencies {
 	compile('org.springframework.data:spring-data-neo4j:4.0.0.RELEASE')
 	compile("org.hibernate:hibernate-validator")
 	compile("com.google.guava:guava:18.0")
-	testCompile('org.springframework.boot:spring-boot-starter-test') 
+	compile('nz.ac.waikato.cms.weka:weka-stable:3.8.0')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 
