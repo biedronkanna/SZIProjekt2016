@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.Pane?>
+
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="1121.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+   <center>
+      <Canvas fx:id="mapCanvas" height="200.0" width="1000.0" BorderPane.alignment="CENTER" />
+   </center>
+   <right>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="50.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="deliverButton" mnemonicParsing="false" onAction="#deliverButtonClicked" prefHeight="37.0" prefWidth="92.0" text="Przenieś">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetButtonClicked" prefHeight="25.0" prefWidth="85.0" text="Reset">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="100.0" left="10.0" right="10.0" top="100.0" />
+         </padding>
+      </VBox>
+   </right>
+   <top>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@wozek.png" />
+         </image>
+      </ImageView>
+   </top>
+</BorderPane>
