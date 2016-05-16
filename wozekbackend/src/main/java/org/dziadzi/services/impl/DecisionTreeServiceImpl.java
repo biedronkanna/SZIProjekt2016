@@ -10,6 +10,9 @@ import weka.core.*;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 /**
  * Created by DELL on 2016-05-06.
@@ -18,7 +21,7 @@ import java.io.InputStreamReader;
 public class DecisionTreeServiceImpl {
 
 	@RequestMapping("tree")
-	public String getDecisionTree(){
+	public String getDecisionTree() {
 		try {
 			buildDecisionTree();
 		} catch (Exception e) {
@@ -26,6 +29,7 @@ public class DecisionTreeServiceImpl {
 		}
 		return "{}";
 	}
+
 	public void buildDecisionTree() throws Exception {
 		BufferedReader datafile = readDataFile("stores.txt");
 
@@ -33,13 +37,38 @@ public class DecisionTreeServiceImpl {
 		data.setClassIndex(data.numAttributes() - 1);
 		Classifier model = new J48();
 		model.buildClassifier(data);
-		for(Instance instance: data) {
+		for (Instance instance : data) {
 			double v = model.classifyInstance(instance);
 			System.out.println(v + instance.toString());
 		}
+
+		Instance toClassify = createInstance("paper", 5, 5, 50, 40, true, false);
+		toClassify.setDataset(data);
+		double v = model.classifyInstance(toClassify);
+		System.out.println(v + toClassify.toString());
 		System.out.println(model.toString());
 
 		// Calculate overall accuracy of current classifier on all splits
+	}
+
+	private Instance createInstance(String material, Integer weight, Integer height, Integer length,
+			Integer width, Boolean isFragile, Boolean hasDate) {
+		ArrayList<Attribute> attributeList = newArrayList(
+				new Attribute("package", newArrayList("paper", "wrap", "wood", "plastic")),
+				new Attribute("weight"), new Attribute("height"), new Attribute("length"),
+				new Attribute("width"), new Attribute("isFragile", newArrayList("TRUE", "FALSE")),
+				new Attribute("hasDate", newArrayList("TRUE", "FALSE")));
+		Instances instances = new Instances("data", attributeList, 1);
+		double values[] = new double[instances.numAttributes()];
+		values[0] = instances.attribute(0).indexOfValue(material);
+		values[1] = weight;
+		values[2] = height;
+		values[3] = length;
+		values[4] = width;
+		values[5] = instances.attribute(5).indexOfValue(isFragile.toString().toUpperCase());
+		values[6] = instances.attribute(6).indexOfValue(hasDate.toString().toUpperCase());
+		Instance instance = new DenseInstance(1, values);
+		return instance;
 	}
 
 	public static BufferedReader readDataFile(String filename) {
