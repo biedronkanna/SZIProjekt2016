@@ -45,34 +45,5 @@ public class Main extends Application {
             Field field = FieldContainer.getField(id);
             System.out.println(field.getX() + " " + field.getY());
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*JSONArray json = readJsonFromUrl("http://localhost:8080");
-        for(int i=0; i<json.length()-1; i++) //i dąży do 2500
-        {
-            JSONArray column = json.getJSONArray(i);
-            System.out.println(column.toString());
-            for(int j=0; j<column.length(); j++)
-            {
-                JSONObject object = column.getJSONObject(j);
-                System.out.println(object.get("id"));
-                //System.out.println(object.toString());
-            }
-        }
-        System.out.println(json.getJSONArray(json.length()-1).toString());
-        //System.out.println(json.getJSONObject(56));*/
     }
 }
