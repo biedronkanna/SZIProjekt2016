@@ -19,6 +19,7 @@ public class ItemToDtoConverter implements Function<Item, ItemDto> {
 				.withFragile(item.getFragile()).withWidth(item.getWidth())
 				.withLength(item.getLength()).withHeight(item.getHeight())
 				.withWeight(item.getWeight())
-				.withContainsFood(item.getContainsFood()).build();
+				.withContainsFood(item.getContainsFood())
+				.withItemPackage(item.getItemPackage()).build();
 	}
 }
