@@ -15,6 +15,8 @@ public interface LocationService {
 
     Location getLocationEntity(int x, int y);
 
+    Location findOne(Long aLong);
+
     void deleteLocations();
 
 

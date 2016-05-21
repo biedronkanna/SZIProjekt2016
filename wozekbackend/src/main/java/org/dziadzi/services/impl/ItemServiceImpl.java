@@ -7,6 +7,8 @@ import org.dziadzi.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by DELL on 2016-04-15.
  */
@@ -25,5 +27,15 @@ public class ItemServiceImpl implements ItemService {
 	public Item locateItem(Item item, Location location) {
 		item.setLocation(location);
 		return itemRepository.save(item, 1);
+	}
+
+	@Override
+	public List<Item> getAll() {
+		return itemRepository.findByStorageIsNull();
+	}
+
+	@Override
+	public Item findOne(Long itemId) {
+		return itemRepository.findOne(itemId);
 	}
 }
