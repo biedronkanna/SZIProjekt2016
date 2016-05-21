@@ -4,6 +4,7 @@ import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -20,7 +21,7 @@ public class Storage {
     private Location location;
 
     @Relationship(type = "IS_STORED_IN", direction = Relationship.INCOMING)
-    private Set<Item> storedItems;
+    private Set<Item> storedItems = new HashSet<>();
 
     @Relationship(type = "IS_STORAGE_TYPE_OF", direction = Relationship.INCOMING)
     private StorageType type;

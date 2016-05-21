@@ -1,15 +1,17 @@
 package org.dziadzi.dtos.builders;
 
-import org.dziadzi.dtos.StorageDto;
-import org.dziadzi.dtos.StorageTypeDto;
+import org.dziadzi.dtos.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by DELL on 2016-04-15.
+ * Created by DELL on 2016-05-21.
  */
 public class StorageDtoBuilder {
     private Long id;
-    private String name;
     private StorageTypeDto type;
+    private List<ItemDto> items = new ArrayList<>();
 
     private StorageDtoBuilder() {
     }
@@ -23,25 +25,25 @@ public class StorageDtoBuilder {
         return this;
     }
 
-    public StorageDtoBuilder withName(String name) {
-        this.name = name;
-        return this;
-    }
-
     public StorageDtoBuilder withType(StorageTypeDto type) {
         this.type = type;
         return this;
     }
 
+    public StorageDtoBuilder withItems(List<ItemDto> items) {
+        this.items = items;
+        return this;
+    }
+
     public StorageDtoBuilder but() {
-        return aStorageDto().withId(id).withName(name).withType(type);
+        return aStorageDto().withId(id).withType(type).withItems(items);
     }
 
     public StorageDto build() {
         StorageDto storageDto = new StorageDto();
         storageDto.setId(id);
-        storageDto.setName(name);
         storageDto.setType(type);
+        storageDto.setItems(items);
         return storageDto;
     }
 }

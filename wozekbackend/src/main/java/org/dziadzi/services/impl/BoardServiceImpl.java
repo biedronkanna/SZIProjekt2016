@@ -4,7 +4,6 @@ import org.dziadzi.dtos.LocationDto;
 import org.dziadzi.nodes.*;
 import org.dziadzi.nodes.builders.*;
 import org.dziadzi.nodes.enums.ItemPackage;
-import org.dziadzi.nodes.enums.StorageTypeName;
 import org.dziadzi.repositories.ForkLiftRepository;
 import org.dziadzi.repositories.LocationRepository;
 import org.dziadzi.services.*;
@@ -18,6 +17,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static org.dziadzi.nodes.enums.StorageTypeName.FOOD_STORAGE;
+import static org.dziadzi.nodes.enums.StorageTypeName.OTHER_STORAGE;
 import static org.dziadzi.nodes.enums.traversal.Direction.N;
 
 /**
@@ -109,9 +110,8 @@ public class BoardServiceImpl implements BoardService {
 		for (int i = 0; i < storageLocations.size(); i++) {
 			Location location = storageLocations.get(i);
 			StorageType type = StorageTypeBuilder.aStorageType()
-					.withName(StorageTypeName.FOOD_STORAGE).build();
+					.withName(i%2==0? FOOD_STORAGE:OTHER_STORAGE).build();
 			Storage storage = StorageBuilder.aStorage().withType(type)
-					.withName(type.getName().name() + " " + location.getX() + " " + location.getY())
 					.build();
 			storageService.createStorage(storage, location);
 		}
