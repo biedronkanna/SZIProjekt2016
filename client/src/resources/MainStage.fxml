@@ -11,9 +11,9 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="1121.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="646.0" prefWidth="1123.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <center>
-      <Canvas fx:id="mapCanvas" height="200.0" width="1000.0" BorderPane.alignment="CENTER" />
+      <Canvas fx:id="mapCanvas" height="500.0" width="500.0" BorderPane.alignment="TOP_CENTER" />
    </center>
    <right>
       <VBox prefHeight="200.0" prefWidth="100.0" spacing="50.0" BorderPane.alignment="CENTER">
@@ -35,7 +35,7 @@
       </VBox>
    </right>
    <top>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="TOP_LEFT">
          <image>
             <Image url="@wozek.png" />
          </image>

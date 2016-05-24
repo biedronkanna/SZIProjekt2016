@@ -86,7 +86,6 @@ public class JSONParser {
                     Field currentField = (Field)fields.get(ForkLift.currentPosition);
                     System.out.println(currentField.getX());
                     System.out.println(ForkLift.currentPosition);
-                    System.out.println(mapCanvasHeight);
                     FieldContainer.addField(ForkLift.currentPosition, currentField.getX(), currentField.getY(), currentField.getIsdifficultToTraverse(), new Image("resources/forklift.png"), currentField.getIsdifficultToTraverse());
                 }
                 else if(pathList[i].equals("\"LEFT\"")) {

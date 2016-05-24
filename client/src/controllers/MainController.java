@@ -47,16 +47,12 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         gc = mapCanvas.getGraphicsContext2D();
-        System.out.println("color set to black");
-        //gc.fillRect(50, 50, 100, 100);
-        System.out.println("draw rectangle");
         fillCanvas(FieldContainer.fields);
         JSONParser.mapCanvasHeight = (int)mapCanvas.getHeight();
     }
 
     public static void setStage(Stage primaryStage) {
         stage = primaryStage;
-
     }
 
     @FXML
@@ -90,7 +86,6 @@ public class MainController implements Initializable {
             }
         });
 
-        //Add everything to grid
         grid.getChildren().addAll(idLabel, idInput, okButton);
 
         Scene scene = new Scene(grid, 300, 100);
@@ -118,7 +113,7 @@ public class MainController implements Initializable {
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             Field field = (Field)pair.getValue();
-            gc.drawImage( field.getImage(), field.getX()*20, (mapCanvas.getHeight() - field.getY()*20) - 20); //500 - 490 - 10
+            gc.drawImage( field.getImage(), field.getX()*50, (mapCanvas.getHeight() - field.getY()*50) - 50); //500 - 490 - 10
             System.out.println("Drawing " + field.getX().toString() + " " + field.getY().toString());
         }
     }

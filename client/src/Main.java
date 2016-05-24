@@ -24,10 +24,10 @@ public class Main extends Application {
 
         Pane root = FXMLLoader.load( Main.class.getResource("resources/MainStage.fxml") );
 
-        Scene scene = new Scene( root, 1121, 535 );
+        Scene scene = new Scene( root, 1123, 646 );
         primaryStage.setScene( scene );
-        primaryStage.setMinWidth(1000);
-        primaryStage.setMinHeight(535);
+        primaryStage.setMinWidth(1123);
+        primaryStage.setMinHeight(646);
         primaryStage.setTitle("Wózek");
 
         primaryStage.show();
