@@ -33,9 +33,9 @@ public class ForkLift {
         return location.getY();
     }
 
-    public static Integer moveDown() { return -50; } //-50
+    public static Integer moveDown() { return -10; } //-50
 
-    public static Integer moveUp() { return (50); } //50
+    public static Integer moveUp() { return (10); } //50
 
     public static Integer moveLeft() { return (-1); }
 
