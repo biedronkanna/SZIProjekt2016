@@ -53,6 +53,11 @@ public class LocationServiceImpl implements LocationService {
 		return locationRepository.findByXAndY(x, y);
 	}
 
+	@Override
+	public Location findOne(Long aLong) {
+		return locationRepository.findOne(aLong);
+	}
+
 	private void addNeighbours(Location toSave) {
 		Location left = locationRepository.findByXAndY(toSave.getX() - 1,
 				toSave.getY());

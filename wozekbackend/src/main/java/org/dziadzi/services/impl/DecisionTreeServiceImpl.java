@@ -1,15 +1,21 @@
 package org.dziadzi.services.impl;
 
+import org.dziadzi.nodes.Item;
+import org.dziadzi.nodes.enums.ItemTypeName;
+import org.dziadzi.services.ItemService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import weka.classifiers.Classifier;
-import weka.classifiers.evaluation.Evaluation;
-import weka.classifiers.evaluation.NominalPrediction;
 import weka.classifiers.trees.J48;
 import weka.core.*;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 /**
  * Created by DELL on 2016-05-06.
@@ -17,8 +23,11 @@ import java.io.InputStreamReader;
 @RestController
 public class DecisionTreeServiceImpl {
 
+	@Autowired
+	private ItemService itemService;
+
 	@RequestMapping("tree")
-	public String getDecisionTree(){
+	public String getDecisionTree() {
 		try {
 			buildDecisionTree();
 		} catch (Exception e) {
@@ -26,23 +35,51 @@ public class DecisionTreeServiceImpl {
 		}
 		return "{}";
 	}
+
 	public void buildDecisionTree() throws Exception {
-		BufferedReader datafile = readDataFile("stores.txt");
+		BufferedReader datafile = readDataFile("learn.txt");
 
 		Instances data = new Instances(datafile);
 		data.setClassIndex(data.numAttributes() - 1);
 		Classifier model = new J48();
 		model.buildClassifier(data);
-		for(Instance instance: data) {
-			double v = model.classifyInstance(instance);
-			System.out.println(v + instance.toString());
-		}
-		System.out.println(model.toString());
+		List<Item> all = itemService.getAll();
+		Integer correct = 0;
 
-		// Calculate overall accuracy of current classifier on all splits
+		for (Item item : all) {
+			ItemTypeName classify = classify(item);
+			if (ItemTypeName.FOOD.equals(classify) && item.getContainsFood()) {
+				correct++;
+			}
+			if (ItemTypeName.OTHER.equals(classify) && !item.getContainsFood()) {
+				correct++;
+			}
+		}
+		System.out.println((double) correct / (double) all.size());
+
 	}
 
-	public static BufferedReader readDataFile(String filename) {
+	private Instance createInstance(String material, Integer weight, Integer height, Integer length,
+			Integer width, Boolean isFragile, Boolean hasDate) {
+		ArrayList<Attribute> attributeList = newArrayList(
+				new Attribute("package", newArrayList("paper", "wrap", "wood", "plastic")),
+				new Attribute("weight"), new Attribute("height"), new Attribute("length"),
+				new Attribute("width"), new Attribute("isFragile", newArrayList("TRUE", "FALSE")),
+				new Attribute("hasDate", newArrayList("TRUE", "FALSE")));
+		Instances instances = new Instances("data", attributeList, 1);
+		double values[] = new double[instances.numAttributes()];
+		values[0] = instances.attribute(0).indexOfValue(material);
+		values[1] = weight;
+		values[2] = height;
+		values[3] = length;
+		values[4] = width;
+		values[5] = instances.attribute(5).indexOfValue(isFragile.toString().toUpperCase());
+		values[6] = instances.attribute(6).indexOfValue(hasDate.toString().toUpperCase());
+		Instance instance = new DenseInstance(1, values);
+		return instance;
+	}
+
+	public BufferedReader readDataFile(String filename) {
 		BufferedReader inputReader = null;
 
 		inputReader = new BufferedReader(new InputStreamReader(
@@ -51,37 +88,23 @@ public class DecisionTreeServiceImpl {
 		return inputReader;
 	}
 
-	public static Evaluation classify(Classifier model, Instances trainingSet, Instances testingSet)
-			throws Exception {
-		Evaluation evaluation = new Evaluation(trainingSet);
+	public ItemTypeName classify(Item item) throws Exception {
+		BufferedReader datafile = readDataFile("learn.txt");
 
-		model.buildClassifier(trainingSet);
-		evaluation.evaluateModel(model, testingSet);
+		Instances data = new Instances(datafile);
+		data.setClassIndex(data.numAttributes() - 1);
+		Classifier model = new J48();
+		model.buildClassifier(data);
 
-		return evaluation;
+		Instance toClassify = createInstance(item);
+		toClassify.setDataset(data);
+		double v = model.classifyInstance(toClassify);
+		return v == 0 ? ItemTypeName.FOOD : ItemTypeName.OTHER;
 	}
 
-	public static double calculateAccuracy(FastVector predictions) {
-		double correct = 0;
-
-		for (int i = 0; i < predictions.size(); i++) {
-			NominalPrediction np = (NominalPrediction) predictions.elementAt(i);
-			if (np.predicted() == np.actual()) {
-				correct++;
-			}
-		}
-
-		return 100 * correct / predictions.size();
-	}
-
-	public static Instances[][] crossValidationSplit(Instances data, int numberOfFolds) {
-		Instances[][] split = new Instances[2][numberOfFolds];
-
-		for (int i = 0; i < numberOfFolds; i++) {
-			split[0][i] = data.trainCV(numberOfFolds, i);
-			split[1][i] = data.testCV(numberOfFolds, i);
-		}
-
-		return split;
+	private Instance createInstance(Item item) {
+		return createInstance(item.getItemPackage().toString().toLowerCase(), item.getWeight(),
+				item.getHeight(), item.getLength(), item.getWidth(), item.getFragile(),
+				item.getHasDate());
 	}
 }
