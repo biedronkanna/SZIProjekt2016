@@ -12,6 +12,5 @@ import java.util.List;
 public interface ItemRepository extends GraphRepository<Item> {
 	@Query("MATCH (i:Item) WHERE NOT i-[:IS_STORED_IN]-() RETURN i")
 	List<Item> findByStorageIsNull();
-
 	List<Item> findAll();
 }

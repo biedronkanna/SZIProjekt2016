@@ -2,3 +2,5 @@
 .idea
 wozekbackend/.gradle
 wozekbackend/build/
+client/.gradle
+client/build/
