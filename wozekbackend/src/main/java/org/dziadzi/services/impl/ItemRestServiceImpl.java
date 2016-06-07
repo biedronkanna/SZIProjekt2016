@@ -48,7 +48,7 @@ public class ItemRestServiceImpl implements ItemRestService {
 	}
 
 	@Override
-	@RequestMapping(value = "storages/{storageId}/items", method = RequestMethod.PUT)
+	@RequestMapping(value = "storages/{storageId}/items", method = RequestMethod.GET)
 	public void locateItem(@PathVariable("storageId") Long storageId,
 			@RequestParam("itemId") Long itemId) throws Exception {
 		Item item = itemService.findOne(itemId);
